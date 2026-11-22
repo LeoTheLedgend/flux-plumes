@@ -1,0 +1,6 @@
+{
+  "vertex": "fluxnautics:laser/laser_fbm",
+  "tesselation_control": "fluxnautics:laser/laser_fbm",
+  "tesselation_evaluation": "fluxplumes:plume_rocket",
+  "fragment": "fluxplumes:plume_aurora"
+}

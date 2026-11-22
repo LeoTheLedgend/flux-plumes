@@ -1,0 +1,4 @@
+{
+  "format": "POSITION_TEX_COLOR", "mode": "QUADS", "bufferSize": "TRANSIENT", "sort": false, "affectsCrumbling": false, "outline": false,
+  "layers": [{"type":"veil:shader","name":"fluxplumes:plume_ion"},{"type":"minecraft:transparency","mode":"lightning"},{"type":"minecraft:write_mask","color":true,"depth":false},{"type":"minecraft:cull","face":"none"},{"type":"veil:patches","patchVertices":4}]
+}

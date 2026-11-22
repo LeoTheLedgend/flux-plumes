@@ -1,0 +1,69 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.78' // bump to the latest 2.x if Gradle complains
+}
+
+version = mod_version
+group = mod_group
+base { archivesName = mod_id }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenLocal()
+    maven { url = 'https://modmaven.dev/' }            // Mekanism
+    maven { url = 'https://maven.blamejared.com/' }    // Veil
+    maven { url = 'https://api.modrinth.com/maven' }   // Sable, etc. (maven.modrinth:<slug>:<version>)
+    // Fluxnautics itself: drop the jar into ./libs (see dependencies below)
+    flatDir { dirs 'libs' }
+}
+
+neoForge {
+    version = neo_version
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    // Veil for NeoForge 1.21.1 (must match the runtime jar in run/mods, currently 4.5.1)
+    implementation "foundry.veil:veil-neoforge-1.21.1:4.5.1"
+
+    // Sodium NeoForge 1.21.1 required by Sable
+    implementation "maven.modrinth:sodium:mc1.21.1-0.8.12-alpha.2-neoforge"
+
+    // Sodium ships its real classes inside a NESTED jarjar within the platform jar (the Modrinth
+    // NeoForge artifact is only a launcher wrapper), so javac cannot see them on the normal
+    // compile classpath. These vendored compile-only jars expose LevelSlice + the Fabric API
+    // interfaces it implements (RenderAttachedBlockView / FabricBlockView) at compile time only -
+    // the runtime still loads the platform jar from run/mods. Keep in sync with the sodium
+    // version pinned above (dev-jars/sodium-0.8.12-alpha.2-mod.jar).
+    compileOnly fileTree(dir: 'dev-jars', include: ['*.jar'])
+
+    // Keep flatDir for local mod jars in ./libs
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var props = [
+        mod_id: mod_id, mod_name: mod_name, mod_version: mod_version,
+        mod_authors: mod_authors, mod_description: mod_description,
+        minecraft_version: minecraft_version, neo_version: neo_version
+    ]
+    inputs.properties props
+    filesMatching('META-INF/neoforge.mods.toml') { expand props }
+}

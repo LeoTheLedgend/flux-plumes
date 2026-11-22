@@ -1,0 +1,28 @@
+{
+  "rocket": {
+    "sounds": [
+      {
+        "name": "fluxplumes:rocketsound",
+        "type": "file",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": true,
+        "attenuation_distance": 32.0
+      }
+    ]
+  },
+  "afterburner": {
+    "sounds": [
+      {
+        "name": "fluxplumes:afterburner",
+        "type": "file",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": true,
+        "attenuation_distance": 32.0
+      }
+    ]
+  }
+}

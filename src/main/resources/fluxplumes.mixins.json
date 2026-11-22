@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "dev.leo.fluxplumes.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "GroupDataMixin",
+    "GroupBuilderMixin"
+  ],
+  "client": [
+    "client.IonThrusterRendererMixin",
+    "client.ThrusterTrailManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
