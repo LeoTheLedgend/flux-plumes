@@ -10,4 +10,4 @@ Install on the client and server with Fluxnautics and Veil, plus their dependenc
 
 Run `gradlew.bat build` (Windows) or `./gradlew build`. This project expects compatible local dependency jars in `libs/`; they are not included in this repository. The development setup also uses jars in `dev-jars/` and `run/mods/`. See `build.gradle` for the configured dependencies.
 
-This is a development build. Flare's latest appearance and colour changes still need visual verification in game.
+This is a development build. 
